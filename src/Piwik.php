@@ -33,7 +33,17 @@ class Piwik extends HttpClient
      */
     public function __construct(string $uri)
     {
+        $base  = '';
+        $token = '';
+
         self::parseServiceURI($uri, $base, $token);
+
+        $ssl  = false;
+        $host = '';
+        $port = 80;
+        $path = '';
+        $user = '';
+        $pass = '';
 
         if (!self::readURL($base, $ssl, $host, $port, $path, $user, $pass)) {
             throw new Exception(__('Unable to read Piwik URI.'));
@@ -46,6 +56,13 @@ class Piwik extends HttpClient
         $this->api_token = $token;
     }
 
+    /**
+     * Determines if site exists.
+     *
+     * @param      string  $id     The identifier
+     *
+     * @return     bool    True if site exists, False otherwise.
+     */
     public function siteExists(string $id): bool
     {
         try {
@@ -61,6 +78,11 @@ class Piwik extends HttpClient
         return false;
     }
 
+    /**
+     * Gets the sites with admin access.
+     *
+     * @return     mixed  The sites with admin access.
+     */
     public function getSitesWithAdminAccess()
     {
         $get = $this->methodCall('SitesManager.getSitesWithAdminAccess');
@@ -74,6 +96,14 @@ class Piwik extends HttpClient
         return $res;
     }
 
+    /**
+     * Adds a site.
+     *
+     * @param      string  $name   The name
+     * @param      string  $url    The url
+     *
+     * @return     mixed
+     */
     public function addSite(string $name, string $url)
     {
         $data = [
@@ -86,6 +116,14 @@ class Piwik extends HttpClient
         return $this->readResponse();
     }
 
+    /**
+     * Prepare a method call
+     *
+     * @param      string                   $method  The method
+     * @param      array<string, mixed>     $data    The data
+     *
+     * @return     array<string, mixed>
+     */
     protected function methodCall(string $method, array $data = []): array
     {
         $data['token_auth'] = $this->api_token;
@@ -99,6 +137,13 @@ class Piwik extends HttpClient
         ];
     }
 
+    /**
+     * Reads a response.
+     *
+     * @throws     Exception  (description)
+     *
+     * @return     mixed
+     */
     protected function readResponse()
     {
         $res = $this->getContent();
@@ -120,13 +165,27 @@ class Piwik extends HttpClient
         throw new Exception(sprintf(__('Piwik returned an error: %s'), strip_tags($msg)));
     }
 
+    /**
+     * Gets the service uri.
+     *
+     * @param      string     $base   The base
+     * @param      string     $token  The token
+     *
+     * @throws     Exception
+     *
+     * @return     string     The service uri.
+     */
     public static function getServiceURI(string &$base, string $token): string
     {
+        if (!$base) {
+            throw new Exception('Invalid Piwik Base URI.');
+        }
+
         if (!preg_match('/^[a-f0-9]{32}$/i', $token)) {
             throw new Exception('Invalid Piwik Token.');
         }
 
-        $base = preg_replace('/\?(.*)$/', '', $base);
+        $base = (string) preg_replace('/\?(.*)$/', '', (string) $base);
         if (!preg_match('/index\.php$/', $base)) {
             if (!preg_match('/\/$/', $base)) {
                 $base .= '/';
@@ -137,11 +196,21 @@ class Piwik extends HttpClient
         return $base . '?token_auth=' . $token;
     }
 
+    /**
+     * Parse a Service URI
+     *
+     * @param      string  $uri    The uri
+     * @param      string  $base   The base
+     * @param      string  $token  The token
+     */
     public static function parseServiceURI(string &$uri, string &$base, string &$token): void
     {
         $err = new Exception(__('Invalid Service URI.'));
 
         $p = parse_url($uri);
+        if (!$p) {
+            $p = [];
+        }
         $p = array_merge(
             ['scheme' => '','host' => '','user' => '','pass' => '','path' => '','query' => '','fragment' => ''],
             $p
@@ -155,16 +224,25 @@ class Piwik extends HttpClient
             throw $err;
         }
 
-        parse_str($p['query'], $query);
+        parse_str((string) $p['query'], $query);
         if (empty($query['token_auth'])) {
             throw $err;
         }
 
         $base  = $uri;
-        $token = $query['token_auth'];
+        $token = is_array($query['token_auth']) ? $query['token_auth'][0] : $query['token_auth'];
         $uri   = self::getServiceURI($base, $token);
     }
 
+    /**
+     * Gets the script code.
+     *
+     * @param      string  $uri     The URI
+     * @param      string  $idsite  The site ID
+     * @param      string  $action  The action
+     *
+     * @return     string  The script code.
+     */
     public static function getScriptCode(string $uri, string $idsite, string $action = ''): string
     {
         self::getServiceURI($uri, '00000000000000000000000000000000');

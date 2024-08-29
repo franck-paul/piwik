@@ -22,15 +22,18 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        $piwik_service_uri = $settings->piwik_service_uri;
-        $piwik_site        = $settings->piwik_site;
-        $piwik_ips         = $settings->piwik_ips;
+        $piwik_service_uri = $settings->piwik_service_uri ?? '';
+        $piwik_site        = $settings->piwik_site        ?? '';
+        $piwik_ips         = $settings->piwik_ips         ?? '';
 
         if (!$piwik_service_uri || !$piwik_site) {
             return '';
         }
 
-        $piwik_ips = array_flip(preg_split('/(\s*[;,]\s*|\s+)/', trim($piwik_ips), -1, PREG_SPLIT_NO_EMPTY));
+        $ips = preg_split('/(\s*[;,]\s*|\s+)/', trim($piwik_ips), -1, PREG_SPLIT_NO_EMPTY);
+        if ($ips) {
+            $piwik_ips = array_flip($ips);
+        }
 
         if (isset($piwik_ips[Http::realIP()])) {
             return '';
