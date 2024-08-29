@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Dotclear 2 piwik module\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-06-20 13:30+0200\n"
+"PO-Revision-Date: 2008-06-20 13:31+0100\n"
+"Last-Translator: Olivier Meunier <olivier@dotclear.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: French\n"
+
+msgid "Unable to read Piwik URI."
+msgstr "Impossible de lire l'URI de Piwik."
+
+msgid "Invalid Piwik Response."
+msgstr "Réponse Piwik invalide."
+
+#, php-format
+msgid "Piwik returned an error: %s"
+msgstr "Piwik a renvoyé une erreur : %s"
+
+msgid "Invalid Service URI."
+msgstr "URI de service invalide."
+
+msgid "Piwik site does not exist."
+msgstr "Le site Piwik n'existe pas."
+
+msgid "Disable Piwik"
+msgstr "Désactiver Piwik"
+
+msgid "No Piwik sites configured."
+msgstr "Aucun site Piwik configuré."
+
+msgid "Piwik configuration"
+msgstr "Configuration de Piwik"
+
+msgid "Your Piwik configuration"
+msgstr "Votre configuration Piwik"
+
+msgid "Your Piwik URL:"
+msgstr "Votre URL Piwik :"
+
+msgid "Your Piwik Token:"
+msgstr "Votre token Piwik :"
+
+msgid "Your Piwik installation is not configured yet."
+msgstr "Votre installation de Piwik n'est pas encore configurée."
+
+msgid "Piwik website to track:"
+msgstr "Site Piwik à suivre :"
+
+msgid "Use fancy page names:"
+msgstr "Utiliser des noms de page améliorés :"
+
+msgid "Do not track following IP addresses:"
+msgstr "Ne pas activer le suivi sur les adresses IP suivantes :"
+
+#, php-format
+msgid "Your current IP address is: %s"
+msgstr "Votre adresse IP est actuellement : %s"
+
+#, php-format
+msgid "View \"%s\" statistics"
+msgstr "Voir les statistiques de \"%s\""
+
+msgid "Create a new Piwik site for this blog"
+msgstr "Créer un nouveau site Piwik pour ce blog"
+
+msgid "Site name:"
+msgstr "Nom du site :"
+
+msgid "Site URL:"
+msgstr "URL du site :"
+
+msgid "create site"
+msgstr "créer le site"
+
+#~ msgid "Last visits graph on %s"
+#~ msgstr "Graphique des dernières visites sur %s"
+
