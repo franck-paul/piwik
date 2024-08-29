@@ -10,8 +10,8 @@
 
 use Dotclear\Helper\L10n;
 
-L10n::$locales['Matomo (ex Piwik) statistics integration'] = '';
-L10n::$locales['Piwik'] = '';
+L10n::$locales['Matomo (ex Piwik) statistics integration'] = 'Intégration des statistiques Matomo (ex Piwik)';
+L10n::$locales['Piwik'] = 'Piwik';
 L10n::$locales['Piwik site does not exist.'] = 'Le site Piwik n\'existe pas.';
 L10n::$locales['Disable Piwik'] = 'Désactiver Piwik';
 L10n::$locales['No Piwik sites configured.'] = 'Aucun site Piwik configuré.';
