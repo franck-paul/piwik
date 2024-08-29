@@ -13,101 +13,77 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../git-plugins/piwik/src/Backend.php:25
 msgid "Matomo (ex Piwik) statistics integration"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Backend.php:25
 msgid "Piwik"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:98
 msgid "Piwik site does not exist."
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:156
 msgid "Disable Piwik"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:164
 msgid "No Piwik sites configured."
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:181
 msgid "Piwik configuration"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:192
 msgid "Your Piwik installation is not configured yet."
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:202
 msgid "Piwik website to track:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:208
 msgid "Use fancy page names:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:216
 msgid "Do not track following IP addresses:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:220
 #, php-format
 msgid "Your current IP address is: %s"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:229
 #, php-format
 msgid "View \"%s\" statistics"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:240
 msgid "Your Piwik configuration"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:248
 msgid "Your Piwik URL:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:256
 msgid "Your Piwik Token:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:261
-#: ../git-plugins/piwik/src/Manage.php:295
 msgid "Save"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:275
 msgid "Create a new Piwik site for this blog"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:283
 msgid "Site name:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:291
 msgid "Site URL:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Piwik.php:39
 msgid "Unable to read Piwik URI."
 msgstr ""
 
-#: ../git-plugins/piwik/src/Piwik.php:108
 msgid "Invalid Piwik Response."
 msgstr ""
 
-#: ../git-plugins/piwik/src/Piwik.php:120
 #, php-format
 msgid "Piwik returned an error: %s"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Piwik.php:142
 msgid "Invalid Service URI."
 msgstr ""

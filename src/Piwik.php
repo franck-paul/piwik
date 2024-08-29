@@ -1,22 +1,37 @@
 <?php
+/**
+ * @brief piwik, a plugin for Dotclear 2
+ *
+ * @package Dotclear
+ * @subpackage Plugins
+ *
+ * @author Olivier Meunier, Franck Paul and contributors
+ *
+ * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
+ */
+declare(strict_types=1);
 
-# -- BEGIN LICENSE BLOCK ----------------------------------
-#
-# This file is part of Dotclear 2.
-#
-# Copyright (c) 2003-2008 Olivier Meunier and contributors
-# Licensed under the GPL version 2.0 license.
-# See LICENSE file or
-# http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-#
-# -- END LICENSE BLOCK ------------------------------------
+namespace Dotclear\Plugin\piwik;
 
-class dcPiwik extends netHttp
+use Dotclear\Helper\Html\Html;
+use Dotclear\Helper\Network\HttpClient;
+use Exception;
+
+class Piwik extends HttpClient
 {
-    protected $api_path;
-    protected $api_token;
+    protected string $api_path;
 
-    public function __construct($uri)
+    protected string $api_token;
+
+    /**
+     * Constructs a new instance.
+     *
+     * @param      string     $uri    The uri
+     *
+     * @throws     Exception
+     */
+    public function __construct(string $uri)
     {
         self::parseServiceURI($uri, $base, $token);
 
@@ -31,16 +46,16 @@ class dcPiwik extends netHttp
         $this->api_token = $token;
     }
 
-    public function siteExists($id)
+    public function siteExists(string $id): bool
     {
         try {
             $sites = $this->getSitesWithAdminAccess();
             foreach ($sites as $v) {
-                if ($v['idsite'] == $id) {
+                if ($v['idsite'] === $id) {
                     return true;
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
         }
 
         return false;
@@ -59,7 +74,7 @@ class dcPiwik extends netHttp
         return $res;
     }
 
-    public function addSite($name, $url)
+    public function addSite(string $name, string $url)
     {
         $data = [
             'siteName' => $name,
@@ -71,14 +86,17 @@ class dcPiwik extends netHttp
         return $this->readResponse();
     }
 
-    protected function methodCall($method, $data = [])
+    protected function methodCall(string $method, array $data = []): array
     {
         $data['token_auth'] = $this->api_token;
         $data['module']     = 'API';
         $data['format']     = 'php';
         $data['method']     = $method;
 
-        return ['path' => $this->api_path, 'data' => $data];
+        return [
+            'path' => $this->api_path,
+            'data' => $data,
+        ];
     }
 
     protected function readResponse()
@@ -97,12 +115,12 @@ class dcPiwik extends netHttp
         return $res;
     }
 
-    protected function piwikError($msg)
+    protected function piwikError(string $msg): void
     {
         throw new Exception(sprintf(__('Piwik returned an error: %s'), strip_tags($msg)));
     }
 
-    public static function getServiceURI(&$base, $token)
+    public static function getServiceURI(string &$base, string $token): string
     {
         if (!preg_match('/^[a-f0-9]{32}$/i', $token)) {
             throw new Exception('Invalid Piwik Token.');
@@ -119,7 +137,7 @@ class dcPiwik extends netHttp
         return $base . '?token_auth=' . $token;
     }
 
-    public static function parseServiceURI(&$uri, &$base, &$token)
+    public static function parseServiceURI(string &$uri, string &$base, string &$token): void
     {
         $err = new Exception(__('Invalid Service URI.'));
 
@@ -147,7 +165,7 @@ class dcPiwik extends netHttp
         $uri   = self::getServiceURI($base, $token);
     }
 
-    public static function getScriptCode($uri, $idsite, $action = '')
+    public static function getScriptCode(string $uri, string $idsite, string $action = ''): string
     {
         self::getServiceURI($uri, '00000000000000000000000000000000');
         $js  = dirname($uri) . '/piwik.js';
@@ -155,14 +173,14 @@ class dcPiwik extends netHttp
 
         return
         "<!-- Piwik -->\n" .
-        '<script type="text/javascript" src="' . html::escapeURL($js) . '"></script>' . "\n" .
+        '<script type="text/javascript" src="' . Html::escapeURL($js) . '"></script>' . "\n" .
         '<script type="text/javascript">' .
         "//<![CDATA[\n" .
         "piwik_tracker_pause = 250;\n" .
-        "piwik_log('" . html::escapeJS($action) . "', " . (int) $idsite . ", '" . html::escapeJS($php) . "');\n" .
+        "piwik_log('" . Html::escapeJS($action) . "', " . (int) $idsite . ", '" . Html::escapeJS($php) . "');\n" .
         "//]]>\n" .
         "</script>\n" .
-        '<noscript><div><img src="' . html::escapeURL($php) . '" style="border:0" alt="piwik" width="0" height="0" /></div>' . "\n" .
+        '<noscript><div><img src="' . Html::escapeURL($php) . '" style="border:0" alt="piwik" width="0" height="0" /></div>' . "\n" .
         "</noscript>\n" .
         "<!-- /Piwik -->\n";
     }

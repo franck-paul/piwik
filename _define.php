@@ -1,28 +1,26 @@
 <?php
-
-# -- BEGIN LICENSE BLOCK ----------------------------------
-#
-# This file is part of Dotclear 2.
-#
-# Copyright (c) 2003-2008 Olivier Meunier and contributors
-# Licensed under the GPL version 2.0 license.
-# See LICENSE file or
-# http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-#
-# -- END LICENSE BLOCK ------------------------------------
-if (!defined('DC_RC_PATH')) {
-    return;
-}
-
+/**
+ * @brief pingMastodon, a plugin for Dotclear 2
+ *
+ * @package Dotclear
+ * @subpackage Plugins
+ *
+ * @author Olivier Meunier, Franck Paul and contributors
+ *
+ * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
+ */
 $this->registerModule(
-    /* Name */
     'Piwik',
-    /* Description*/
-    'Piwik statistics integration',
-    /* Author */
+    'Matomo (ex Piwik) statistics integration',
     'Olivier Meunier',
-    /* Version */
-    '0.8.1',
-    /* Permissions */
-    'admin'
+    '0.9',
+    [
+        'requires'    => [['core', '2.31']],
+        'type'        => 'plugin',
+        'permissions' => 'My',
+        'details'     => 'https://open-time.net/docs/plugins/piwik',
+        'support'     => 'https://github.com/franck-paul/piwik',
+        'repository'  => 'https://raw.githubusercontent.com/franck-paul/piwik/main/dcstore.xml',
+    ]
 );
