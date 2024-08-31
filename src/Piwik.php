@@ -86,7 +86,7 @@ class Piwik extends HttpClient
     public function getSitesWithAdminAccess()
     {
         $get = $this->methodCall('SitesManager.getSitesWithAdminAccess');
-        $this->get($get['path'], $get['data']);
+        $this->post($get['path'], $get['data']);
         $rsp = $this->readResponse();
         $res = [];
         foreach ($rsp as $v) {
@@ -111,7 +111,7 @@ class Piwik extends HttpClient
             'urls'     => $url,
         ];
         $get = $this->methodCall('SitesManager.addSite', $data);
-        $this->get($get['path'], $get['data']);
+        $this->post($get['path'], $get['data']);
 
         return $this->readResponse();
     }
@@ -231,7 +231,8 @@ class Piwik extends HttpClient
 
         $base  = $uri;
         $token = is_array($query['token_auth']) ? $query['token_auth'][0] : $query['token_auth'];
-        $uri   = self::getServiceURI($base, $token);
+
+        $uri = self::getServiceURI($base, $token);
     }
 
     /**
