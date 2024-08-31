@@ -128,7 +128,7 @@ class Piwik extends HttpClient
     {
         $data['token_auth'] = $this->api_token;
         $data['module']     = 'API';
-        $data['format']     = 'php';
+        $data['format']     = 'json';   // was 'php' in 2010
         $data['method']     = $method;
 
         return [
@@ -147,11 +147,7 @@ class Piwik extends HttpClient
     protected function readResponse()
     {
         $res = $this->getContent();
-        $res = @unserialize($res);
-
-        if ($res === false) {
-            throw new Exception(__('Invalid Piwik Response.'));
-        }
+        $res = json_decode($res, true);
 
         if (is_array($res) && !empty($res['result']) && $res['result'] == 'error') {
             $this->piwikError($res['message']);
