@@ -196,7 +196,7 @@ class Manage extends Process
                 (new Single('hr')),
                 (new Para())
                     ->items([
-                        (new Select('action'))
+                        (new Select('piwik_site'))
                             ->items($sites_combo)
                             ->default($piwik_site)
                             ->label((new Label(__('Piwik website to track:'), Label::OUTSIDE_TEXT_BEFORE))->class('classic')),
