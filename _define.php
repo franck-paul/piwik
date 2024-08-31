@@ -14,7 +14,7 @@ $this->registerModule(
     'Piwik',
     'Matomo (ex Piwik) statistics integration',
     'Olivier Meunier',
-    '1.1',
+    '1.2',
     [
         'requires'    => [['core', '2.31']],
         'type'        => 'plugin',
