@@ -59,11 +59,11 @@ class Piwik extends HttpClient
     /**
      * Determines if site exists.
      *
-     * @param      string  $id     The identifier
+     * @param      int     $id     The identifier
      *
      * @return     bool    True if site exists, False otherwise.
      */
-    public function siteExists(string $id): bool
+    public function siteExists(int $id): bool
     {
         try {
             $sites = $this->getSitesWithAdminAccess();

@@ -92,9 +92,9 @@ class Manage extends Process
                     $piwik_ips   = $_POST['piwik_ips'];
                     $piwik_fancy = $_POST['piwik_fancy'];
 
-                    if ($piwik_site != '') {
+                    if ($piwik_site !== '') {
                         $o = new Piwik($piwik_service_uri);
-                        if (!$o->siteExists($piwik_site)) {
+                        if (!$o->siteExists((int) $piwik_site)) {
                             throw new Exception(__('Piwik site does not exist.'));
                         }
                     }
