@@ -33,7 +33,6 @@ class Piwik
      */
     public function __construct(string $uri)
     {
-        $uri   = '';
         $base  = '';
         $token = '';
 
