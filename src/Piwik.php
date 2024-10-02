@@ -14,14 +14,14 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\piwik;
 
+use Dotclear\App;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Network\HttpClient;
 use Exception;
 
-class Piwik extends HttpClient
+class Piwik
 {
-    protected string $api_path;
-
+    protected string $api_base;
     protected string $api_token;
 
     /**
@@ -33,6 +33,7 @@ class Piwik extends HttpClient
      */
     public function __construct(string $uri)
     {
+        $uri   = '';
         $base  = '';
         $token = '';
 
@@ -45,14 +46,11 @@ class Piwik extends HttpClient
         $user = '';
         $pass = '';
 
-        if (!self::readURL($base, $ssl, $host, $port, $path, $user, $pass)) {
+        if (!HttpClient::readURL($base, $ssl, $host, $port, $path, $user, $pass)) {
             throw new Exception(__('Unable to read Piwik URI.'));
         }
 
-        parent::__construct($host, $port, 10);
-        $this->useSSL($ssl);
-        $this->setAuthorization($user, $pass);
-        $this->api_path  = $path;
+        $this->api_base  = $base;
         $this->api_token = $token;
     }
 
@@ -81,16 +79,53 @@ class Piwik extends HttpClient
     /**
      * Gets the sites with admin access.
      *
-     * @return     mixed  The sites with admin access.
+     * @return     array<string, mixed>  The sites with admin access.
      */
-    public function getSitesWithAdminAccess()
+    public function getSitesWithAdminAccess(): array
     {
-        $get = $this->methodCall('SitesManager.getSitesWithAdminAccess');
-        $this->post($get['path'], $get['data']);
-        $rsp = $this->readResponse();
         $res = [];
-        foreach ($rsp as $v) {
-            $res[$v['idsite']] = $v;
+
+        $qs = http_build_query([
+            'module' => 'API',
+            'format' => 'json',
+            'method' => 'SitesManager.getSitesWithAdminAccess',
+        ]);
+
+        $curl = curl_init();
+        if ($curl) {
+            curl_setopt_array($curl, [
+                CURLOPT_URL            => $this->api_base . '?' . $qs,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING       => '',
+                CURLOPT_MAXREDIRS      => 10,
+                CURLOPT_TIMEOUT        => 30,
+                CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST  => 'POST',
+                CURLOPT_POSTFIELDS     => 'token_auth=' . $this->api_token,
+                CURLOPT_HTTPHEADER     => [
+                    'Content-Type: application/x-www-form-urlencoded',
+                ],
+            ]);
+
+            // Don't care about certificates issuers but only in dev and debug mode
+            if (App::config()->devMode() && App::config()->debugMode()) {
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+            }
+
+            $response = curl_exec($curl);
+            $err      = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($response !== false) {
+                $response = json_decode((string) $response, true);
+                foreach ($response as $site) {
+                    $res[$site['idsite']] = $site;
+                }
+            } else {
+                $this->piwikError($err);
+            }
         }
 
         return $res;
@@ -106,51 +141,48 @@ class Piwik extends HttpClient
      */
     public function addSite(string $name, string $url)
     {
-        $data = [
+        $res = null;
+
+        $qs = http_build_query([
+            'module'   => 'API',
+            'format'   => 'json',
+            'method'   => 'SitesManager.addSite',
             'siteName' => $name,
             'urls'     => $url,
-        ];
-        $get = $this->methodCall('SitesManager.addSite', $data);
-        $this->post($get['path'], $get['data']);
+        ]);
 
-        return $this->readResponse();
-    }
+        $curl = curl_init();
+        if ($curl) {
+            curl_setopt_array($curl, [
+                CURLOPT_URL            => $this->api_base . '?' . $qs,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING       => '',
+                CURLOPT_MAXREDIRS      => 10,
+                CURLOPT_TIMEOUT        => 30,
+                CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST  => 'POST',
+                CURLOPT_POSTFIELDS     => 'token_auth=' . $this->api_token,
+                CURLOPT_HTTPHEADER     => [
+                    'Content-Type: application/x-www-form-urlencoded',
+                ],
+            ]);
 
-    /**
-     * Prepare a method call
-     *
-     * @param      string                   $method  The method
-     * @param      array<string, mixed>     $data    The data
-     *
-     * @return     array<string, mixed>
-     */
-    protected function methodCall(string $method, array $data = []): array
-    {
-        $data['token_auth'] = $this->api_token;
-        $data['module']     = 'API';
-        $data['format']     = 'json';   // was 'php' in 2010
-        $data['method']     = $method;
+            // Don't care about certificates issuers but only in dev and debug mode
+            if (App::config()->devMode() && App::config()->debugMode()) {
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+            }
 
-        return [
-            'path' => $this->api_path,
-            'data' => $data,
-        ];
-    }
+            $response = curl_exec($curl);
+            $err      = curl_error($curl);
 
-    /**
-     * Reads a response.
-     *
-     * @throws     Exception  (description)
-     *
-     * @return     mixed
-     */
-    protected function readResponse()
-    {
-        $res = $this->getContent();
-        $res = json_decode($res, true);
+            curl_close($curl);
 
-        if (is_array($res) && !empty($res['result']) && $res['result'] == 'error') {
-            $this->piwikError($res['message']);
+            if ($response !== false) {
+                $res = json_decode((string) $response, true);
+            } else {
+                $this->piwikError($err);
+            }
         }
 
         return $res;
