@@ -160,7 +160,7 @@ class Manage extends Process
             // Get sites list
             $piwik_sites = $o->getSitesWithAdminAccess();
 
-            if (count($piwik_sites) < 1) {
+            if (empty($piwik_sites)) {
                 throw new Exception(__('No Piwik sites configured.'));
             }
 
