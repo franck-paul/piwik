@@ -24,7 +24,8 @@ class Backend extends Process
         // dead but useful code, in order to have translations
         __('Piwik') . __('Matomo (ex Piwik) statistics integration');
 
-        return self::status(My::checkContext(My::BACKEND));
+        // Curl lib is mandatory for backend operations
+        return self::status(My::checkContext(My::BACKEND) && function_exists('curl_init'));
     }
 
     public static function process(): bool
