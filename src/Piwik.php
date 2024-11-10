@@ -278,16 +278,13 @@ class Piwik
         $php = dirname($uri) . '/piwik.php';
 
         return
-        "<!-- Piwik -->\n" .
-        '<script type="text/javascript" src="' . Html::escapeURL($js) . '"></script>' . "\n" .
-        '<script type="text/javascript">' .
-        "//<![CDATA[\n" .
-        "piwik_tracker_pause = 250;\n" .
-        "piwik_log('" . Html::escapeJS($action) . "', " . (int) $idsite . ", '" . Html::escapeJS($php) . "');\n" .
-        "//]]>\n" .
-        "</script>\n" .
-        '<noscript><div><img src="' . Html::escapeURL($php) . '" style="border:0" alt="piwik" width="0" height="0" /></div>' . "\n" .
-        "</noscript>\n" .
-        "<!-- /Piwik -->\n";
+        '<!-- Piwik -->' . PHP_EOL .
+        '<script src="' . Html::escapeURL($js) . '"></script>' . PHP_EOL .
+        '<script>' .
+        'piwik_tracker_pause = 250;' . PHP_EOL .
+        "piwik_log('" . Html::escapeJS($action) . "', " . (int) $idsite . ", '" . Html::escapeJS($php) . "');" . PHP_EOL .
+        '</script>' . PHP_EOL .
+        '<noscript><div><img src="' . Html::escapeURL($php) . '" style="border:0" alt="piwik" width="0" height="0"></div></noscript>' . PHP_EOL .
+        '<!-- /Piwik -->' . PHP_EOL ;
     }
 }
