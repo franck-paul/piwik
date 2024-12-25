@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief piwik, a plugin for Dotclear 2
  *
@@ -142,7 +143,7 @@ class Manage extends Process
         $piwik_ips         = $settings->piwik_ips         ?? '';
         $piwik_fancy       = $settings->piwik_fancy       ?? false;
 
-        $site_url  = preg_replace('/\?$/', '', App::blog()->url());
+        $site_url  = preg_replace('/\?$/', '', (string) App::blog()->url());
         $site_name = App::blog()->name();
 
         $piwik_uri   = '';
