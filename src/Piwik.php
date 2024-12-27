@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief piwik, a plugin for Dotclear 2
  *
@@ -204,7 +205,7 @@ class Piwik
      */
     public static function getServiceURI(string &$base, string $token): string
     {
-        if (!$base) {
+        if (!empty($base)) {
             throw new Exception('Invalid Piwik Base URI.');
         }
 

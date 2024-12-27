@@ -155,13 +155,13 @@ class Manage extends Process
         }
 
         $sites_combo = [__('Disable Piwik') => ''];
-        if ($piwik_uri) {
+        if (!empty($piwik_uri)) {
             $o = new Piwik($piwik_service_uri);
 
             // Get sites list
             $piwik_sites = $o->getSitesWithAdminAccess();
 
-            if (empty($piwik_sites)) {
+            if ($piwik_sites === []) {
                 throw new Exception(__('No Piwik sites configured.'));
             }
 
@@ -186,7 +186,7 @@ class Manage extends Process
 
         // Form
 
-        if (!$piwik_uri) {
+        if (!empty($piwik_uri)) {
             $track = [
                 (new Note())
                     ->class('info')
@@ -243,7 +243,7 @@ class Manage extends Process
                         (new Para())
                             ->items([
                                 (new Input('piwik_uri'))
-                                    ->value(Html::escapeHTML((string) $piwik_uri))
+                                    ->value(Html::escapeHTML($piwik_uri))
                                     ->size(40)
                                     ->maxlength(255)
                                     ->label((new Label(__('Your Piwik URL:'), Label::OUTSIDE_LABEL_BEFORE))),
@@ -251,7 +251,7 @@ class Manage extends Process
                         (new Para())
                             ->items([
                                 (new Input('piwik_token'))
-                                    ->value(Html::escapeHTML((string) $piwik_token))
+                                    ->value(Html::escapeHTML($piwik_token))
                                     ->size(40)
                                     ->maxlength(255)
                                     ->label((new Label(__('Your Piwik Token:'), Label::OUTSIDE_LABEL_BEFORE))),
@@ -267,7 +267,7 @@ class Manage extends Process
             ])
         ->render();
 
-        if ($piwik_uri) {
+        if (!empty($piwik_uri)) {
             echo (new Form('piwik_create'))
                 ->action(App::backend()->getPageURL())
                 ->method('post')
