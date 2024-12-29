@@ -222,7 +222,7 @@ class Manage extends Process
             ];
         }
 
-        if ($piwik_site && $piwik_uri) {
+        if ($piwik_site !== '' && $piwik_uri !== '') {
             $stats = (new Para())
                 ->items([
                     (new Link())
