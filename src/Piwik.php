@@ -205,7 +205,7 @@ class Piwik
      */
     public static function getServiceURI(string &$base, string $token): string
     {
-        if (!empty($base)) {
+        if ($base === '') {
             throw new Exception('Invalid Piwik Base URI.');
         }
 
