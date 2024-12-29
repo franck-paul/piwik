@@ -213,7 +213,7 @@ class Piwik
             throw new Exception('Invalid Piwik Token.');
         }
 
-        $base = (string) preg_replace('/\?(.*)$/', '', (string) $base);
+        $base = (string) preg_replace('/\?(.*)$/', '', $base);
         if (!preg_match('/index\.php$/', $base)) {
             if (!preg_match('/\/$/', $base)) {
                 $base .= '/';

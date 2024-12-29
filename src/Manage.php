@@ -155,7 +155,7 @@ class Manage extends Process
         }
 
         $sites_combo = [__('Disable Piwik') => ''];
-        if (!empty($piwik_uri)) {
+        if ($piwik_uri !== '') {
             $o = new Piwik($piwik_service_uri);
 
             // Get sites list
@@ -186,7 +186,7 @@ class Manage extends Process
 
         // Form
 
-        if (!empty($piwik_uri)) {
+        if ($piwik_uri !== '') {
             $track = [
                 (new Note())
                     ->class('info')
@@ -267,7 +267,7 @@ class Manage extends Process
             ])
         ->render();
 
-        if (!empty($piwik_uri)) {
+        if ($piwik_uri !== '') {
             echo (new Form('piwik_create'))
                 ->action(App::backend()->getPageURL())
                 ->method('post')
