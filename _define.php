@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief pingMastodon, a plugin for Dotclear 2
  *
@@ -16,6 +17,7 @@ $this->registerModule(
     'Olivier Meunier',
     '1.4',
     [
+        'date'        => '2003-08-13T13:42:00+0100',
         'requires'    => [['core', '2.31']],
         'type'        => 'plugin',
         'permissions' => 'My',
