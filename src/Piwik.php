@@ -252,7 +252,7 @@ class Piwik
             throw $err;
         }
 
-        parse_str((string) $p['query'], $query);
+        parse_str($p['query'], $query);
         if (empty($query['token_auth'])) {
             throw $err;
         }
