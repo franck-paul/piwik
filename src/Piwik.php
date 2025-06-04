@@ -120,8 +120,12 @@ class Piwik
 
             if ($response !== false) {
                 $response = json_decode((string) $response, true);
-                foreach ($response as $site) {
-                    $res[$site['idsite']] = $site;
+                if (isset($response['result']) && $response['result'] === 'error') {
+                    $this->piwikError($response['message']);
+                } else {
+                    foreach ($response as $site) {
+                        $res[$site['idsite']] = $site;
+                    }
                 }
             } else {
                 $this->piwikError($err);

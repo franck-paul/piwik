@@ -24,5 +24,6 @@ $this->registerModule(
         'details'     => 'https://open-time.net/docs/plugins/piwik',
         'support'     => 'https://github.com/franck-paul/piwik',
         'repository'  => 'https://raw.githubusercontent.com/franck-paul/piwik/main/dcstore.xml',
+        'license'     => 'gpl2',
     ]
 );
