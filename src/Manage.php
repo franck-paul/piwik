@@ -182,7 +182,7 @@ class Manage extends Process
                 __('Piwik configuration')             => '',
             ]
         );
-        echo Notices::GetNotices();
+        echo Notices::getNotices();
 
         // Form
 
