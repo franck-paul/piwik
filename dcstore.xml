@@ -1,11 +1,11 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="piwik">
     <name>Piwik</name>
-    <version>1.6</version>
+    <version>1.7</version>
     <author>Olivier Meunier, Franck Paul and contributors</author>
     <desc>Matomo (ex Piwik) statistics integration</desc>
-    <date>2025-06-04T12:10:06+0200</date>
-    <file>https://github.com/franck-paul/piwik/releases/download/1.6/plugin-piwik-1.6.zip</file>
+    <date>2025-07-14T17:03:41+0200</date>
+    <file>https://github.com/franck-paul/piwik/releases/download/1.7/plugin-piwik-1.7.zip</file>
     <da:dcmin>2.31</da:dcmin>
     <da:details>https://open-time.net/?q=piwik</da:details>
     <da:support>https://github.com/franck-paul/piwik</da:support>
