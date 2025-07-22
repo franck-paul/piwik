@@ -186,7 +186,7 @@ class Manage extends Process
 
         // Form
 
-        if ($piwik_uri !== '') {
+        if ($piwik_uri === '') {
             $track = [
                 (new Note())
                     ->class('info')
