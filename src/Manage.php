@@ -16,8 +16,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\piwik;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Notices;
-use Dotclear\Core\Backend\Page;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Form;
@@ -107,7 +105,7 @@ class Manage
                 }
 
                 App::blog()->triggerBlog();
-                Notices::addSuccessNotice(__('Configuration successfully updated.'));
+                App::backend()->notices()->addSuccessNotice(__('Configuration successfully updated.'));
                 My::redirect();
             }
 
@@ -118,7 +116,7 @@ class Manage
                 if (!empty($_POST['site_name']) && !empty($_POST['site_url'])) {
                     $o->addSite($_POST['site_name'], $_POST['site_url']);
 
-                    Notices::addSuccessNotice(__('Configuration successfully updated.'));
+                    App::backend()->notices()->addSuccessNotice(__('Configuration successfully updated.'));
                     My::redirect();
                 }
             }
@@ -176,15 +174,15 @@ class Manage
             }
         }
 
-        Page::openModule(My::name());
+        App::backend()->page()->openModule(My::name());
 
-        echo Page::breadcrumb(
+        echo App::backend()->page()->breadcrumb(
             [
                 Html::escapeHTML(App::blog()->name()) => '',
                 __('Piwik configuration')             => '',
             ]
         );
-        echo Notices::getNotices();
+        echo App::backend()->notices()->getNotices();
 
         // Form
 
@@ -303,8 +301,8 @@ class Manage
             ->render();
         }
 
-        Page::helpBlock('piwik');
+        App::backend()->page()->helpBlock('piwik');
 
-        Page::closeModule();
+        App::backend()->page()->closeModule();
     }
 }
