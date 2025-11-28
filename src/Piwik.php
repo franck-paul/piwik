@@ -116,8 +116,6 @@ class Piwik
             $response = curl_exec($curl);
             $err      = curl_error($curl);
 
-            curl_close($curl);
-
             if ($response !== false) {
                 $response = json_decode((string) $response, true);
                 if (isset($response['result']) && $response['result'] === 'error') {
@@ -179,8 +177,6 @@ class Piwik
 
             $response = curl_exec($curl);
             $err      = curl_error($curl);
-
-            curl_close($curl);
 
             if ($response !== false) {
                 $res = json_decode((string) $response, true);
