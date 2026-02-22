@@ -65,8 +65,8 @@ class Piwik
     {
         try {
             $sites = $this->getSitesWithAdminAccess();
-            foreach ($sites as $v) {
-                if ($v['idsite'] === $id) {
+            foreach ($sites as $site) {
+                if ($site['idsite'] === $id) {
                     return true;
                 }
             }
