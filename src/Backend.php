@@ -25,7 +25,7 @@ class Backend
     public static function init(): bool
     {
         // dead but useful code, in order to have translations
-        __('Piwik');
+        __('Matomo');
         __('Matomo (ex Piwik) statistics integration');
 
         // Curl lib is mandatory for backend operations

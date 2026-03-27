@@ -98,7 +98,7 @@ class Manage
                     if ($piwik_site !== -1) {
                         $o = new Piwik($piwik_service_uri);
                         if (!$o->siteExists($piwik_site)) {
-                            throw new Exception(__('Piwik site does not exist.'));
+                            throw new Exception(__('Matomo site does not exist.'));
                         }
                     }
                     $settings->put('piwik_site', $piwik_site, BlogWorkspaceInterface::NS_INT);
