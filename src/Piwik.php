@@ -47,7 +47,7 @@ class Piwik
         $pass = '';
 
         if (!HttpClient::readURL($base, $ssl, $host, $port, $path, $user, $pass)) {
-            throw new Exception(__('Unable to read Piwik URI.'));
+            throw new Exception(__('Unable to read Matomo URI.'));
         }
 
         $this->api_base  = $base;
@@ -65,10 +65,8 @@ class Piwik
     {
         try {
             $sites = $this->getSitesWithAdminAccess();
-            foreach ($sites as $site) {
-                if ($site['idsite'] === $id) {
-                    return true;
-                }
+            if (in_array($id, array_keys($sites))) {
+                return true;
             }
         } catch (Exception) {
         }
@@ -79,7 +77,7 @@ class Piwik
     /**
      * Gets the sites with admin access.
      *
-     * @return     array<string, mixed>  The sites with admin access.
+     * @return     array<int, string>   The sites with admin access.
      */
     public function getSitesWithAdminAccess(): array
     {
@@ -117,12 +115,21 @@ class Piwik
             $err      = curl_error($curl);
 
             if ($response !== false) {
-                $response = json_decode((string) $response, true);
-                if (isset($response['result']) && $response['result'] === 'error') {
-                    $this->piwikError($response['message']);
+                $payload = json_decode((string) $response, true);
+                if (!is_array($payload)) {
+                    $this->piwikError(__('Unable to get sites with admin access.'));
+                } elseif (isset($payload['result']) && $payload['result'] === 'error') {
+                    $message = is_string($message = $payload['message']) ? $message : __('Unable to get sites with admin access.');
+                    $this->piwikError($message);
                 } else {
-                    foreach ($response as $site) {
-                        $res[$site['idsite']] = $site;
+                    foreach ($payload as $site) {
+                        if (is_array($site) && isset($site['idsite']) && isset($site['name'])) {
+                            $idsite = is_numeric($idsite = $site['idsite']) ? (int) $idsite : -1;
+                            $name   = is_string($name = $site['name']) ? $name : '';
+                            if ($idsite !== -1 && $name !== '') {
+                                $res[$idsite] = $name;
+                            }
+                        }
                     }
                 }
             } else {
@@ -190,7 +197,7 @@ class Piwik
 
     protected function piwikError(string $msg): void
     {
-        throw new Exception(sprintf(__('Piwik returned an error: %s'), strip_tags($msg)));
+        throw new Exception(sprintf(__('Matomo returned an error: %s'), strip_tags($msg)));
     }
 
     /**
@@ -206,11 +213,11 @@ class Piwik
     public static function getServiceURI(string &$base, string $token): string
     {
         if ($base === '') {
-            throw new Exception('Invalid Piwik Base URI.');
+            throw new Exception('Invalid Matomo Base URI.');
         }
 
         if (!preg_match('/^[a-f0-9]{32}$/i', $token)) {
-            throw new Exception('Invalid Piwik Token.');
+            throw new Exception('Invalid Matomo Token.');
         }
 
         $base = (string) preg_replace('/\?(.*)$/', '', $base);
@@ -257,35 +264,39 @@ class Piwik
             throw $err;
         }
 
-        $base  = $uri;
-        $token = is_array($query['token_auth']) ? $query['token_auth'][0] : $query['token_auth'];
+        $token_auth = is_array($query['token_auth']) ? $query['token_auth'][0] : $query['token_auth'];
 
-        $uri = self::getServiceURI($base, $token);
+        if (is_string($token_auth)) {
+            $token = $token_auth;
+            $base  = $uri;
+
+            $uri = self::getServiceURI($base, $token);
+        }
     }
 
     /**
      * Gets the script code.
      *
      * @param      string  $uri     The URI
-     * @param      string  $idsite  The site ID
+     * @param      int     $idsite  The site ID
      * @param      string  $action  The action
      *
      * @return     string  The script code.
      */
-    public static function getScriptCode(string $uri, string $idsite, string $action = ''): string
+    public static function getScriptCode(string $uri, int $idsite, string $action = ''): string
     {
         self::getServiceURI($uri, '00000000000000000000000000000000');
         $js  = dirname($uri) . '/piwik.js';
         $php = dirname($uri) . '/piwik.php';
 
         return
-        '<!-- Piwik -->' . PHP_EOL .
+        '<!-- Matomo -->' . PHP_EOL .
         '<script src="' . Html::escapeURL($js) . '"></script>' . PHP_EOL .
         '<script>' .
         'piwik_tracker_pause = 250;' . PHP_EOL .
-        "piwik_log('" . Html::escapeJS($action) . "', " . (int) $idsite . ", '" . Html::escapeJS($php) . "');" . PHP_EOL .
+        "piwik_log('" . Html::escapeJS($action) . "', " . $idsite . ", '" . Html::escapeJS($php) . "');" . PHP_EOL .
         '</script>' . PHP_EOL .
         '<noscript><div><img src="' . Html::escapeURL($php) . '" style="border:0" alt="piwik" width="0" height="0"></div></noscript>' . PHP_EOL .
-        '<!-- /Piwik -->' . PHP_EOL ;
+        '<!-- /Matomo -->' . PHP_EOL ;
     }
 }

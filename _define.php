@@ -12,7 +12,7 @@
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 $this->registerModule(
-    'Piwik',
+    'Matomo',
     'Matomo (ex Piwik) statistics integration',
     'Olivier Meunier',
     '2.2',

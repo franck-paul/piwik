@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 piwik module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-29 15:59+0200\n"
+"POT-Creation-Date: 2026-03-27 16:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,98 +16,95 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../git-plugins/piwik/src/Backend.php:25
-msgid "Matomo (ex Piwik) statistics integration"
-msgstr ""
-
-#: ../git-plugins/piwik/src/Backend.php:25
+#: ../git-plugins/piwik/src/Backend.php:28
 msgid "Piwik"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:98
+#: ../git-plugins/piwik/src/Backend.php:29
+msgid "Matomo (ex Piwik) statistics integration"
+msgstr ""
+
+#: ../git-plugins/piwik/src/Manage.php:101
 msgid "Piwik site does not exist."
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:156
-msgid "Disable Piwik"
+#: ../git-plugins/piwik/src/Manage.php:166
+msgid "Disable Matomo"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:164
-msgid "No Piwik sites configured."
-msgstr ""
-
-#: ../git-plugins/piwik/src/Manage.php:181
-msgid "Piwik configuration"
-msgstr ""
-
-#: ../git-plugins/piwik/src/Manage.php:192
-msgid "Your Piwik installation is not configured yet."
-msgstr ""
-
-#: ../git-plugins/piwik/src/Manage.php:202
-msgid "Piwik website to track:"
+#: ../git-plugins/piwik/src/Manage.php:197
+msgid "Matomo configuration"
 msgstr ""
 
 #: ../git-plugins/piwik/src/Manage.php:208
+msgid "Your Matomo installation is not configured yet."
+msgstr ""
+
+#: ../git-plugins/piwik/src/Manage.php:218
+msgid "Matomo website to track:"
+msgstr ""
+
+#: ../git-plugins/piwik/src/Manage.php:224
 msgid "Use fancy page names:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:216
+#: ../git-plugins/piwik/src/Manage.php:232
 msgid "Do not track following IP addresses:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:220
+#: ../git-plugins/piwik/src/Manage.php:236
 #, php-format
 msgid "Your current IP address is: %s"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:229
+#: ../git-plugins/piwik/src/Manage.php:248
 #, php-format
 msgid "View \"%s\" statistics"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:240
-msgid "Your Piwik configuration"
+#: ../git-plugins/piwik/src/Manage.php:258
+msgid "Your Matomo configuration"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:248
-msgid "Your Piwik URL:"
+#: ../git-plugins/piwik/src/Manage.php:266
+msgid "Your Matomo URL:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:256
-msgid "Your Piwik Token:"
+#: ../git-plugins/piwik/src/Manage.php:274
+msgid "Your Matomo Token:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:261
-#: ../git-plugins/piwik/src/Manage.php:295
+#: ../git-plugins/piwik/src/Manage.php:279
+#: ../git-plugins/piwik/src/Manage.php:313
 msgid "Save"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:275
-msgid "Create a new Piwik site for this blog"
+#: ../git-plugins/piwik/src/Manage.php:293
+msgid "Create a new Matomo site for this blog"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:283
+#: ../git-plugins/piwik/src/Manage.php:301
 msgid "Site name:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Manage.php:291
+#: ../git-plugins/piwik/src/Manage.php:309
 msgid "Site URL:"
 msgstr ""
 
-#: ../git-plugins/piwik/src/Piwik.php:39
-msgid "Unable to read Piwik URI."
-msgstr ""
-
-#: ../git-plugins/piwik/src/Piwik.php:108
-msgid "Invalid Piwik Response."
+#: ../git-plugins/piwik/src/Piwik.php:50
+msgid "Unable to read Matomo URI."
 msgstr ""
 
 #: ../git-plugins/piwik/src/Piwik.php:120
-#, php-format
-msgid "Piwik returned an error: %s"
+#: ../git-plugins/piwik/src/Piwik.php:122
+msgid "Unable to get sites with admin access."
 msgstr ""
 
-#: ../git-plugins/piwik/src/Piwik.php:142
+#: ../git-plugins/piwik/src/Piwik.php:200
+#, php-format
+msgid "Matomo returned an error: %s"
+msgstr ""
+
+#: ../git-plugins/piwik/src/Piwik.php:243
 msgid "Invalid Service URI."
 msgstr ""

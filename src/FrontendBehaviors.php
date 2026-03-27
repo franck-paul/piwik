@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief piwik, a plugin for Dotclear 2
  *
@@ -22,26 +23,23 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        $piwik_service_uri = $settings->piwik_service_uri ?? '';
-        $piwik_site        = $settings->piwik_site        ?? '';
-        $piwik_ips         = $settings->piwik_ips         ?? '';
+        $piwik_service_uri = is_string($piwik_service_uri = $settings->piwik_service_uri) ? $piwik_service_uri : '';
+        $piwik_site        = is_numeric($piwik_site = $settings->piwik_site) ? (int) $piwik_site : -1;
+        $piwik_ips         = is_string($piwik_ips = $settings->piwik_ips) ? $piwik_ips : '';
+        $piwik_fancy       = is_bool($piwik_fancy = $settings->piwik_fancy) && $piwik_fancy;
 
         if (!$piwik_service_uri || !$piwik_site) {
             return '';
         }
 
         $ips = preg_split('/(\s*[;,]\s*|\s+)/', trim($piwik_ips), -1, PREG_SPLIT_NO_EMPTY);
-        if ($ips) {
-            $piwik_ips = array_flip($ips);
-        }
-
-        if (isset($piwik_ips[Http::realIP()])) {
+        if ($ips !== false && $ips !== [] && in_array(Http::realIP(), $ips)) {
             return '';
         }
 
-        $action = $_SERVER['URL_REQUEST_PART'];
-        if ($settings->piwik_fancy) {
-            $action = $action == '' ? 'home' : str_replace('/', ' : ', $action);
+        $action = is_string($action = $_SERVER['URL_REQUEST_PART']) ? $action : '';
+        if ($piwik_fancy) {
+            $action = $action === '' ? 'home' : str_replace('/', ' : ', $action);
         }
 
         # Check for 404 response
