@@ -119,7 +119,7 @@ class Piwik
                 if (!is_array($payload)) {
                     $this->piwikError(__('Unable to get sites with admin access.'));
                 } elseif (isset($payload['result']) && $payload['result'] === 'error') {
-                    $message = is_string($message = $payload['message']) ? $message : __('Unable to get sites with admin access.');
+                    $message = is_string($message = $payload['message']) ? $message : __('Unable to get sites with administrator access.');
                     $this->piwikError($message);
                 } else {
                     foreach ($payload as $site) {
