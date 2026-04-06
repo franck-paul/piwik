@@ -30,5 +30,6 @@ L10n::$locales['Site name:'] = 'Nom du site :';
 L10n::$locales['Site URL:'] = 'URL du site :';
 L10n::$locales['Unable to read Matomo URI.'] = 'Impossible de lire l\'URI de Matomo.';
 L10n::$locales['Unable to get sites with admin access.'] = 'Impossible de récupérer les sites avec un accès administrateur.';
+L10n::$locales['Unable to get sites with administrator access.'] = 'Impossible d\'accéder aux sites avec un accès administrateur.';
 L10n::$locales['Matomo returned an error: %s'] = 'Matomo a renvoyé une erreur : %s';
 L10n::$locales['Invalid Service URI.'] = 'URI de service invalide.';
