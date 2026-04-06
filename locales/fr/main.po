@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 piwik module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-27 16:49+0100\n"
+"POT-Creation-Date: 2026-04-06 15:42+0200\n"
 "PO-Revision-Date: 2026-03-28 10:41+0000\n"
 "Last-Translator: Franck Paul <contact+transifex@open-time.net>, 2026\n"
 "Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
@@ -81,6 +81,9 @@ msgstr "Impossible de lire l'URI de Matomo."
 
 msgid "Unable to get sites with admin access."
 msgstr "Impossible de récupérer les sites avec un accès administrateur."
+
+msgid "Unable to get sites with administrator access."
+msgstr "Impossible d'accéder aux sites avec un accès administrateur."
 
 #, php-format
 msgid "Matomo returned an error: %s"
