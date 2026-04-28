@@ -33,7 +33,6 @@ use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Network\Http;
 use Dotclear\Helper\Process\TraitProcess;
-use Dotclear\Interface\Core\BlogWorkspaceInterface;
 use Exception;
 
 class Manage
@@ -101,9 +100,9 @@ class Manage
                             throw new Exception(__('Matomo site does not exist.'));
                         }
                     }
-                    $settings->put('piwik_site', $piwik_site, BlogWorkspaceInterface::NS_INT);
-                    $settings->put('piwik_ips', $piwik_ips, BlogWorkspaceInterface::NS_STRING);
-                    $settings->put('piwik_fancy', $piwik_fancy, BlogWorkspaceInterface::NS_BOOL);
+                    $settings->put('piwik_site', $piwik_site, App::blogWorkspace()::NS_INT);
+                    $settings->put('piwik_ips', $piwik_ips, App::blogWorkspace()::NS_STRING);
+                    $settings->put('piwik_fancy', $piwik_fancy, App::blogWorkspace()::NS_BOOL);
                 }
 
                 App::blog()->triggerBlog();
