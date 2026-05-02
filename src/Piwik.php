@@ -23,6 +23,7 @@ use Exception;
 class Piwik
 {
     protected string $api_base;
+
     protected string $api_token;
 
     /**
@@ -65,7 +66,7 @@ class Piwik
     {
         try {
             $sites = $this->getSitesWithAdminAccess();
-            if (in_array($id, array_keys($sites))) {
+            if (in_array($id, array_keys($sites), true)) {
                 return true;
             }
         } catch (Exception) {
@@ -225,6 +226,7 @@ class Piwik
             if (!preg_match('/\/$/', $base)) {
                 $base .= '/';
             }
+
             $base .= 'index.php';
         }
 
@@ -246,6 +248,7 @@ class Piwik
         if (!$p) {
             $p = [];
         }
+
         $p = array_merge(
             ['scheme' => '','host' => '','user' => '','pass' => '','path' => '','query' => '','fragment' => ''],
             $p

@@ -100,6 +100,7 @@ class Manage
                             throw new Exception(__('Matomo site does not exist.'));
                         }
                     }
+
                     $settings->put('piwik_site', $piwik_site, App::blogWorkspace()::NS_INT);
                     $settings->put('piwik_ips', $piwik_ips, App::blogWorkspace()::NS_STRING);
                     $settings->put('piwik_fancy', $piwik_fancy, App::blogWorkspace()::NS_BOOL);
