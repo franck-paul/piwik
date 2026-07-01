@@ -238,7 +238,7 @@ class Manage
         }
 
         $stats = (new None());
-        if ($no_piwik_sites === false && $piwik_sites !== [] && $piwik_site !== -1 && $piwik_uri !== '') {
+        if ($no_piwik_sites === false && $piwik_sites !== [] && $piwik_site !== -1) {
             $name = $piwik_sites[$piwik_site] ?? '';
             if ($name !== '') {
                 $stats = (new Para())
@@ -284,7 +284,7 @@ class Manage
             ])
         ->render();
 
-        if ($no_piwik_sites === false && $piwik_uri !== '') {
+        if ($no_piwik_sites === false) {
             echo (new Form('piwik_create'))
                 ->action(App::backend()->getPageURL())
                 ->method('post')
