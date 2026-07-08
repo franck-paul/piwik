@@ -23,10 +23,10 @@ class FrontendBehaviors
     {
         $settings = My::settings();
 
-        $piwik_service_uri = is_string($piwik_service_uri = $settings->piwik_service_uri) ? $piwik_service_uri : '';
-        $piwik_site        = is_numeric($piwik_site = $settings->piwik_site) ? (int) $piwik_site : -1;
-        $piwik_ips         = is_string($piwik_ips = $settings->piwik_ips) ? $piwik_ips : '';
-        $piwik_fancy       = is_bool($piwik_fancy = $settings->piwik_fancy) && $piwik_fancy;
+        $piwik_service_uri = $settings->getStr('piwik_service_uri', false);
+        $piwik_site        = $settings->getInt('piwik_site') ?? -1;
+        $piwik_ips         = $settings->getStr('piwik_ips', false);
+        $piwik_fancy       = $settings->getBool('piwik_fancy', false);
 
         if (!$piwik_service_uri || !$piwik_site) {
             return '';

@@ -18,7 +18,7 @@ $this->registerModule(
     '2.4',
     [
         'date'        => '2025-09-07T15:51:45+02.4',
-        'requires'    => [['core', '2.36']],
+        'requires'    => [['core', '2.39']],
         'type'        => 'plugin',
         'permissions' => 'My',
         'details'     => 'https://open-time.net/docs/plugins/piwik',
