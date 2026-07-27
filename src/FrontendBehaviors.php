@@ -33,7 +33,10 @@ class FrontendBehaviors
         }
 
         $ips = preg_split('/(\s*[;,]\s*|\s+)/', trim($piwik_ips), -1, PREG_SPLIT_NO_EMPTY);
-        if ($ips !== false && $ips !== [] && in_array(Http::realIP(), $ips)) {
+        if ($ips    !== false
+            && $ips !== []
+            && in_array(Http::realIP(), $ips)
+        ) {
             return '';
         }
 

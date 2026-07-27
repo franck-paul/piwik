@@ -238,7 +238,10 @@ class Manage
         }
 
         $stats = (new None());
-        if ($no_piwik_sites === false && $piwik_sites !== [] && $piwik_site !== -1) {
+        if ($no_piwik_sites === false
+            && $piwik_sites !== []
+            && $piwik_site  !== -1
+        ) {
             $name = $piwik_sites[$piwik_site] ?? '';
             if ($name !== '') {
                 $stats = (new Para())

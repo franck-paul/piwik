@@ -124,7 +124,10 @@ class Piwik
                     $this->piwikError($message);
                 } else {
                     foreach ($payload as $site) {
-                        if (is_array($site) && isset($site['idsite']) && isset($site['name'])) {
+                        if (is_array($site)
+                            && isset($site['idsite'])
+                            && isset($site['name'])
+                        ) {
                             $idsite = is_numeric($idsite = $site['idsite']) ? (int) $idsite : -1;
                             $name   = is_string($name = $site['name']) ? $name : '';
                             if ($idsite !== -1 && $name !== '') {
