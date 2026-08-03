@@ -15,9 +15,9 @@ $this->registerModule(
     'Matomo',
     'Matomo (ex Piwik) statistics integration',
     'Olivier Meunier',
-    '2.4',
+    '3.0',
     [
-        'date'        => '2025-09-07T15:51:45+02.4',
+        'date'        => '2025-09-07T15:51:45+03.0',
         'requires'    => [['core', '2.39']],
         'type'        => 'plugin',
         'permissions' => 'My',
