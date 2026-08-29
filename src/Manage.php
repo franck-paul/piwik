@@ -178,7 +178,7 @@ class Manage
 
                 foreach ($piwik_sites as $k => $name) {
                     if ($name !== '') {
-                        $sites_combo[] = (new Option(html::escapeHTML($k . ' - ' . $name), (string) $k));
+                        $sites_combo[] = (new Option(Html::escapeHTML($k . ' - ' . $name), (string) $k));
                     }
                 }
 
@@ -233,7 +233,7 @@ class Manage
                     ]),
                 (new Note())
                     ->class('info')
-                    ->text(sprintf(__('Your current IP address is: %s'), http::realIP())),
+                    ->text(sprintf(__('Your current IP address is: %s'), Http::realIP())),
             ];
         }
 
@@ -248,7 +248,7 @@ class Manage
                     ->items([
                         (new Link())
                             ->href($piwik_uri)
-                            ->text(sprintf(__('View "%s" statistics'), html::escapeHTML($name))),
+                            ->text(sprintf(__('View "%s" statistics'), Html::escapeHTML($name))),
                     ]);
             }
         }
