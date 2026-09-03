@@ -245,7 +245,7 @@ class Piwik
      */
     public static function parseServiceURI(string &$uri, string &$base, string &$token): void
     {
-        $err = new Exception(__('Invalid Service URI.'));
+        $exception = new Exception(__('Invalid Service URI.'));
 
         $p = parse_url($uri);
         if (!$p) {
@@ -258,16 +258,16 @@ class Piwik
         );
 
         if ($p['scheme'] != 'http' && $p['scheme'] != 'https') {
-            throw $err;
+            throw $exception;
         }
 
         if (empty($p['query'])) {
-            throw $err;
+            throw $exception;
         }
 
         parse_str($p['query'], $query);
         if (empty($query['token_auth'])) {
-            throw $err;
+            throw $exception;
         }
 
         $token_auth = is_array($query['token_auth']) ? $query['token_auth'][0] : $query['token_auth'];

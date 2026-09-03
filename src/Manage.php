@@ -166,11 +166,11 @@ class Manage
             (new Option(__('Disable Matomo'), '')),
         ];
         if ($piwik_uri !== '') {
-            $o = new Piwik($piwik_service_uri);
+            $piwik = new Piwik($piwik_service_uri);
 
             try {
                 // Get sites list
-                $piwik_sites = $o->getSitesWithAdminAccess();
+                $piwik_sites = $piwik->getSitesWithAdminAccess();
 
                 if ($piwik_sites !== []) {
                     $no_piwik_sites = false;
