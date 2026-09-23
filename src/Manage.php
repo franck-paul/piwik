@@ -62,7 +62,6 @@ class Manage
             $settings = My::settings();
 
             $piwik_service_uri = $settings->getStr('piwik_service_uri', false);
-            $piwik_site        = $settings->getInt('piwik_site') ?? -1;
             $piwik_ips         = $settings->getStr('piwik_ips', false);
             $piwik_fancy       = $settings->getBool('piwik_fancy', false);
 
@@ -201,7 +200,7 @@ class Manage
 
         // Form
 
-        if ($no_piwik_sites || $piwik_uri === '') {
+        if ($no_piwik_sites) {
             $track = [
                 (new Note())
                     ->class('info')
