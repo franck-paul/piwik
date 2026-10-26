@@ -147,7 +147,7 @@ class Manage
         $piwik_ips         = $settings->getStr('piwik_ips', false);
         $piwik_fancy       = $settings->getBool('piwik_fancy', false);
 
-        $site_url  = preg_replace('/\?$/', '', (string) App::blog()->url());
+        $site_url  = preg_replace('/\?$/', '', App::blog()->url());
         $site_name = App::blog()->name();
 
         $piwik_uri   = '';
@@ -297,7 +297,7 @@ class Manage
                             (new Para())
                                 ->items([
                                     (new Input('site_name'))
-                                        ->value(Html::escapeHTML((string) $site_name))
+                                        ->value(Html::escapeHTML($site_name))
                                         ->size(40)
                                         ->maxlength(255)
                                         ->label((new Label(__('Site name:'), Label::OUTSIDE_LABEL_BEFORE))),
