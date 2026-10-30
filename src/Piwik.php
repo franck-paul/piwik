@@ -257,7 +257,7 @@ class Piwik
             $p
         );
 
-        if ($p['scheme'] != 'http' && $p['scheme'] != 'https') {
+        if ($p['scheme'] !== 'http' && $p['scheme'] !== 'https') {
             throw $exception;
         }
 
